@@ -600,7 +600,13 @@ public class MultiUserChatServiceImpl implements Component, MultiUserChatService
             }
         }
     }
-
+if (isLoginRestrictedToNickname()) {
+                //String reservedNickname = members.get(bareJID);
+                String reservedNickname = user.getAddress().getNode();
+                if (reservedNickname != null && !nickname.toLowerCase().equals(reservedNickname)) {
+                    throw new NotAcceptableException();
+                }
+            }
     private void logConversation() {
         ConversationLogEntry entry;
         boolean success;
